@@ -7,6 +7,8 @@ import { createConnection } from 'typeorm';
 
 import { config } from 'dotenv';
 
+import DbNamingStrategy from './config/DbNamingStrategy';
+
 import router from './router';
 
 // load .env file
@@ -22,6 +24,7 @@ createConnection({
   database: process.env.DB_NAME,
   entities: [__dirname + '/models/*.ts'],
   synchronize: true,
+  namingStrategy: new DbNamingStrategy(),
 });
 
 // main koa instance
