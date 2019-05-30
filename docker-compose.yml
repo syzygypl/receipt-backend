@@ -1,0 +1,22 @@
+version: '3'
+services:
+  db:
+    image: postgres:11-alpine
+    container_name: db
+    ports:
+      - 54320:5432
+    volumes:
+      - ./dbdata:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: postgres
+  node:
+    image: node:12-alpine
+    container_name: node
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/app
+    command: ash -c "cd /app &&
+      npm i &&
+      npm run watch"
+    env_file: .env.docker
