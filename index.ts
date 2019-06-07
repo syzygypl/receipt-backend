@@ -28,9 +28,9 @@ app.use(router.routes());
 app.use(router.allowedMethods());
 
 // start server
-app.listen(process.env.APP_PORT);
+app.listen(process.env.PORT);
 
-console.log(`Server started at localhost:${process.env.APP_PORT}`);
+console.log(`Server started at localhost:${process.env.PORT}`);
 
 function createDatabaseConf() {
     var dbConf: any = {
