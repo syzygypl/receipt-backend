@@ -3,9 +3,9 @@ import * as bodyParser from 'koa-bodyparser';
 
 import 'reflect-metadata';
 
-import { createConnection } from 'typeorm';
+import {createConnection} from 'typeorm';
 
-import { config } from 'dotenv';
+import {config} from 'dotenv';
 
 import DbNamingStrategy from './config/DbNamingStrategy';
 
@@ -15,17 +15,7 @@ import router from './router';
 config();
 
 // global DB connection
-createConnection({
-  type: 'postgres',
-  host: process.env.DB_HOST,
-  port: Number(process.env.DB_PORT),
-  username: process.env.DB_USER,
-  password: process.env.DB_PASS,
-  database: process.env.DB_NAME,
-  entities: [__dirname + '/models/*.ts'],
-  synchronize: true,
-  namingStrategy: new DbNamingStrategy(),
-});
+createConnection(createDatabaseConf());
 
 // main koa instance
 const app = new Koa();
@@ -41,3 +31,23 @@ app.use(router.allowedMethods());
 app.listen(process.env.APP_PORT);
 
 console.log(`Server started at localhost:${process.env.APP_PORT}`);
+
+function createDatabaseConf() {
+    var dbConf: any = {
+        type: 'postgres',
+        entities: [__dirname + '/models/*.ts'],
+        synchronize: true,
+        namingStrategy: new DbNamingStrategy(),
+    };
+
+    if (process.env.DATABASE_URL) {
+        dbConf.url = process.env.DATABASE_URL;
+    } else {
+        dbConf.host = process.env.DB_HOST;
+        dbConf.port = process.env.DB_PORT;
+        dbConf.username = process.env.DB_USER;
+        dbConf.password = process.env.DB_PASS;
+        dbConf.database = process.env.DB_NAME;
+    }
+    return dbConf;
+}
