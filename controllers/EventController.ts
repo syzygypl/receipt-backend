@@ -1,15 +1,14 @@
-import {BaseContext} from "koa";
-import {EventCreator} from "../services/EventCreator";
+import { BaseContext } from "koa";
+import { EventCreator } from "../services/EventCreator";
 
-class EventController {
+export class EventController {
+  private creator: EventCreator;
 
-    private creator: EventCreator;
+  constructor() {
+    this.creator = new EventCreator();
+  }
 
-    constructor() {
-        this.creator = new EventCreator();
-    }
-
-    public async create(context: BaseContext) {
-
-    }
+  public create = async (context: BaseContext) => {
+    context.body = await this.creator.create(context.request.body);
+  }
 }

@@ -1,14 +1,17 @@
-import {IsString} from "class-validator";
+import { IsNumber, IsString } from "class-validator";
+import { Position } from "../../models/Position";
 
 export class EventPositionModel {
+  @IsString()
+  name: string;
 
-    @IsString()
-    name: string;
+  @IsNumber()
+  count: number;
 
-    @IsString()
-    count: number;
+  @IsNumber()
+  price: number;
 
-    @IsString()
-    price: number;
-
+  public toPosition(): Position {
+    return new Position(this.name, this.count, this.price);
+  }
 }
