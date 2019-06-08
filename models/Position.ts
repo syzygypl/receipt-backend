@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Event } from "./Event";
 
 @Entity()
 export class Position {
@@ -13,6 +14,9 @@ export class Position {
 
   @Column()
   price: number;
+
+  @ManyToOne(() => Event, (event) => event.uuid)
+  event: Event;
 
   constructor(name: string, count: number, price: number) {
     this.name = name;
