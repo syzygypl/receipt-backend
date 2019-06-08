@@ -8,6 +8,6 @@ const event = new EventController();
 
 router.get('/', index.index);
 router.post('/event', event.create);
-router.get('/event/:uuid/member', event.getEvent);
+router.get('/event/:uuid', event.getEvent);
 
 export default router;
