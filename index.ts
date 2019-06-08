@@ -7,9 +7,8 @@ import {createConnection} from 'typeorm';
 
 import {config} from 'dotenv';
 
-import DbNamingStrategy from './config/DbNamingStrategy';
-
 import router from './router';
+import {createDatabaseConf} from "./config/database";
 
 // load .env file
 config();
@@ -32,22 +31,3 @@ app.listen(process.env.PORT);
 
 console.log(`Server started at localhost:${process.env.PORT}`);
 
-function createDatabaseConf() {
-    var dbConf: any = {
-        type: 'postgres',
-        entities: [__dirname + '/models/*.ts'],
-        synchronize: true,
-        namingStrategy: new DbNamingStrategy(),
-    };
-
-    if (process.env.DATABASE_URL) {
-        dbConf.url = process.env.DATABASE_URL;
-    } else {
-        dbConf.host = process.env.DB_HOST;
-        dbConf.port = process.env.DB_PORT;
-        dbConf.username = process.env.DB_USER;
-        dbConf.password = process.env.DB_PASS;
-        dbConf.database = process.env.DB_NAME;
-    }
-    return dbConf;
-}

@@ -6,7 +6,7 @@ services:
     ports:
       - 54320:5432
     volumes:
-      - ./dbdata:/var/lib/postgresql/data
+      - db:/var/lib/postgresql/data
     environment:
       POSTGRES_PASSWORD: postgres
   node:
@@ -14,9 +14,14 @@ services:
     container_name: node
     ports:
       - 3000:3000
+    working_dir: /app
     volumes:
       - .:/app
     command: ash -c "cd /app &&
       npm i &&
       npm run watch"
     env_file: .env.docker
+
+volumes:
+  db:
+    driver: "local"
