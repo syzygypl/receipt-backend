@@ -1,14 +1,12 @@
 import * as Koa from 'koa';
 import * as bodyParser from 'koa-bodyparser';
-
+import * as cors from '@koa/cors';
 import 'reflect-metadata';
-
-import {createConnection} from 'typeorm';
-
-import {config} from 'dotenv';
+import { createConnection } from 'typeorm';
+import { config } from 'dotenv';
 
 import router from './router';
-import {createDatabaseConf} from "./config/database";
+import { createDatabaseConf } from "./config/database";
 
 // load .env file
 config();
@@ -21,6 +19,10 @@ const app = new Koa();
 
 // load body parser needed to get form data
 app.use(bodyParser());
+
+app.use(cors({
+  origin: '*'
+}));
 
 // load routes defined in router.ts
 app.use(router.routes());
