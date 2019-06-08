@@ -22,6 +22,10 @@ export function createDatabaseConf() {
         dbConf.password = process.env.DB_PASS;
         dbConf.database = process.env.DB_NAME;
     }
+
+    if (process.env.DB_HTTPS === "1") {
+        dbConf.extra = {ssl: true};
+    }
     return dbConf;
 }
 
