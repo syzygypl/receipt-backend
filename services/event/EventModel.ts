@@ -2,7 +2,7 @@ import { IsOptional, IsString, ValidateNested } from "class-validator";
 import { EventPositionModel } from "./EventPositionModel";
 import { Type } from "class-transformer";
 import { Event } from "../../models/Event";
-import { User } from "../../models/User";
+import { Member } from "../../models/Member";
 import { Position } from "../../models/Position";
 
 export class EventModel {
@@ -28,7 +28,7 @@ export class EventModel {
       this.name,
       this.account,
       this.imageUrl,
-      new User(this.ownerName),
+      new Member(this.ownerName),
       this.createPositions()
     );
   }
