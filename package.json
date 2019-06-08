@@ -4,7 +4,8 @@
    "scripts": {
       "start": "ts-node index.ts",
       "watch": "nodemon",
-      "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js"
+      "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
+      "heroku-postbuild": "npm run typeorm migration:run"
    },
    "dependencies": {
       "@types/dotenv": "^6.1.1",
