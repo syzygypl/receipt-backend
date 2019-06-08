@@ -9,7 +9,7 @@ export class EventCreator {
     const model: EventModel = plainToClass(EventModel, request);
     const errors = await validate(model);
 
-    if (!errors.length) {
+    if (errors.length > 0) {
       return errors;
     }
 
