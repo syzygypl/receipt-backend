@@ -33,4 +33,8 @@ export class Event {
     this.owner = owner;
     this.positions = positions;
   }
+
+  public addMember(member: Member) {
+    this.members.push(member);
+  }
 }
