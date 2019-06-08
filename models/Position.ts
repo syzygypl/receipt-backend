@@ -6,7 +6,7 @@ export class Position {
     uuid: string;
 
     @Column()
-    name1: string;
+    name: string;
 
     @Column()
     count: number;
